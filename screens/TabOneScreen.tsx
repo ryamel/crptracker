@@ -28,7 +28,8 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
         <CoinHeader />
         <FlatList
           data={coins.data}
-          renderItem={({item}) => <CoinItem item={item} favBtn={'add'} />} />
+          renderItem={({item}) => <CoinItem item={item} favBtn={'add'} />} 
+          keyExtractor = {(item, index) => index.toString()} />
       </View>
     );
   }

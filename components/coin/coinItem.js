@@ -32,8 +32,10 @@ const CoinItem = ({item, ...props}) => {
 	
 
 	const favBtn = () => {
-		if (props.favBtn == 'add') return <Ionicons name='add-circle-outline' size={18} color={'black'} onPress={() => addCoinToFav(item.symbol)} />
-		if (props.favBtn == 'remove') return <Ionicons name="remove-circle-outline" size={18} color={'black'} onPress={() => removeCoinFromFav(item.symbol)} />
+		if (favList.includes(item.symbol)) return <Ionicons name='star' size={18} color={'black'} onPress={() => removeCoinFromFav(item.symbol)} />
+		if (!favList.includes(item.symbol)) return <Ionicons name='star-outline' size={18} color={'black'} onPress={() => addCoinToFav(item.symbol)} />
+		// if (props.favBtn == 'add') return <Ionicons name='add-circle-outline' size={18} color={'black'} onPress={() => addCoinToFav(item.symbol)} />
+		// if (props.favBtn == 'remove') return <Ionicons name="remove-circle-outline" size={18} color={'black'} onPress={() => removeCoinFromFav(item.symbol)} />
 		return null;
 	}
 

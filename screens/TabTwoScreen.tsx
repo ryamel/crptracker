@@ -35,6 +35,7 @@ export default function TabTwoScreen() {
         <CoinHeader />
         <FlatList
           data={favListData}
+          keyExtractor = {(item, index) => index.toString()} 
           renderItem={({item}) => <CoinItem item={item} favBtn={'remove'} />} />
       </View>
     )

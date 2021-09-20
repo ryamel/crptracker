@@ -12,7 +12,6 @@ import useFavCoinList from './hooks/useFavCoinList';
 import { CoinDataProvider } from './context/coinDataContext';
 import { FavListProvider } from './context/favCoinListContext';
 
-import AsyncStorage from '@react-native-async-storage/async-storage'; 
 
 
 
