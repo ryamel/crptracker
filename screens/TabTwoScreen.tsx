@@ -22,7 +22,7 @@ export default function TabTwoScreen() {
   let [favList, addCoinToFav, removeCoinFromFav] = useContext(FavCoinListContext); // coin data
 
   // take favCoin which is only a list of the coin symbols. and then get the coin data from 'CoinContext'
-  let favListData = coins.data.filter((coin) => {
+  let favListData = coins.data.filter((coin: any) => {
     return favList.includes(coin.symbol)
   })
 

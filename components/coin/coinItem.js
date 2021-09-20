@@ -11,11 +11,11 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { coinImages } from '../../assets/coinDict';
 import numeral from 'numeral';
 import FavCoinListContext from '../../context/favCoinListContext';
-
+import { useNavigation } from '@react-navigation/native';
 
 const CoinItem = ({item, ...props}) => {
 	let [favList, addCoinToFav, removeCoinFromFav] = useContext(FavCoinListContext); // coin data
-	
+	const navigation = useNavigation();
 
 	var { color, sym } = '';
 	if (item.percent_change_24h > 0) {
@@ -43,7 +43,7 @@ const CoinItem = ({item, ...props}) => {
 		return null;
 	} else {
 		return (
-		//  <TouchableOpacity onPress={() => navigation.navigate('CoinProfile', { coinSym: item.symbol})} >
+		<TouchableOpacity onPress={() => navigation.navigate('Modal', { coinSym: item.symbol})} >
 			<View style={style.listItemView}>
 
 				<View style={style.nameView}>
@@ -71,6 +71,7 @@ const CoinItem = ({item, ...props}) => {
 				</View>
 				
 			</View>
+		</TouchableOpacity>
 		)
 	}
 }

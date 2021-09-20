@@ -8,7 +8,7 @@ import { VictoryBar, VictoryChart, VictoryLine } from 'victory';
 
 
 const Chart = (props) => {
-
+	console.log(props.timeSeries);
 	return (
 		<View style={style.body}>
 {/*			<VictoryChart>

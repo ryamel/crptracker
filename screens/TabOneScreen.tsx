@@ -6,7 +6,8 @@ import {
   StyleSheet, 
   useColorScheme,
   Button,
-  FlatList
+  FlatList,
+  TouchableWithoutFeedback
 } from 'react-native';
 
 import EditScreenInfo from '../components/EditScreenInfo';
@@ -26,6 +27,9 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
     return (
       <View>
         <CoinHeader />
+{/*        <Button title='Press me' onPress={() => navigation.navigate('Modal')}>
+          Click
+        </Button>*/}
         <FlatList
           data={coins.data}
           renderItem={({item}) => <CoinItem item={item} favBtn={'add'} />} 
