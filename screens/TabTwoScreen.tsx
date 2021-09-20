@@ -1,32 +1,50 @@
-import * as React from 'react';
-import { StyleSheet } from 'react-native';
+import React, {useEffect, useState, useContext} from 'react';
+import { 
+  SafeAreaView, 
+  ScrollView, 
+  StatusBar, 
+  useColorScheme, 
+  Button,
+  StyleSheet,
+  FlatList
+} from 'react-native';
 
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
+import CoinDataContext from '../context/coinDataContext';
+import FavCoinListContext from '../context/favCoinListContext';
+import CoinHeader from '../components/coin/coinHeader';
+import CoinItem from '../components/coin/coinItem';
+import useFavCoinList from '../hooks/useFavCoinList';
 
 export default function TabTwoScreen() {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab Two</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="/screens/TabTwoScreen.tsx" />
-    </View>
-  );
+  let coins = useContext(CoinDataContext); // coin data
+  let [favList, addCoinToFav, removeCoinFromFav] = useContext(FavCoinListContext); // coin data
+
+  // take favCoin which is only a list of the coin symbols. and then get the coin data from 'CoinContext'
+  let favListData = coins.data.filter((coin) => {
+    return favList.includes(coin.symbol)
+  })
+
+
+  if (favList.length == 0) {
+    return <View><Text style={style.noCoinsText}>No Favourite coins</Text></View>
+  } else {
+    return (
+      <View>
+        <CoinHeader />
+        <FlatList
+          data={favListData}
+          renderItem={({item}) => <CoinItem item={item} favBtn={'remove'} />} />
+      </View>
+    )
+  }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
-});
+const style = StyleSheet.create({
+    noCoinsText: {
+      textAlign: 'center',
+      paddingTop: 50,
+      fontWeight: 'bold'
+    }
+  });

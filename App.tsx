@@ -1,22 +1,41 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
+import useCoinData from './hooks/useCoinData';
 import Navigation from './navigation';
 
-export default function App() {
-  const isLoadingComplete = useCachedResources();
-  const colorScheme = useColorScheme();
+import useFavCoinList from './hooks/useFavCoinList';
 
-  if (!isLoadingComplete) {
+import { CoinDataProvider } from './context/coinDataContext';
+import { FavListProvider } from './context/favCoinListContext';
+
+import AsyncStorage from '@react-native-async-storage/async-storage'; 
+
+
+
+
+export default function App() {
+  let isLoadingComplete = useCachedResources();
+  let colorScheme = useColorScheme();
+  let coinData = useCoinData();
+  let [favList, addCoinToFav, removeCoinFromFav] = useFavCoinList();
+
+
+
+  if (!isLoadingComplete || coinData == null) {
     return null;
   } else {
     return (
       <SafeAreaProvider>
-        <Navigation colorScheme={colorScheme} />
-        <StatusBar />
+        <CoinDataProvider value={coinData}>
+          <FavListProvider value={[favList, addCoinToFav, removeCoinFromFav]}>
+            <Navigation colorScheme={colorScheme} />
+            <StatusBar />
+          </FavListProvider> 
+        </CoinDataProvider> 
       </SafeAreaProvider>
     );
   }
